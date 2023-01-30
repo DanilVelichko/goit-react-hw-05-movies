@@ -1,23 +1,25 @@
 
 import React from 'react';
 import { useState, useEffect } from 'react';
-import { getTrendFilms } from 'services/api';
+import { getFilmName } from 'services/api';
 import { Link } from 'react-router-dom';
-import css from './MovieList.module.css';
+import css from './MovieSearch.module.css';
 
-const MovieList = () => {
+const MovieSearchList = (clickSubmit) => {
   const [movieSearch, setMovieSearch] = useState([]);
 
-useEffect(() => {
-    getTrendFilms().then(films => {
-      if (films.length > 0) {
-        setMovieSearch(films);
-      }
-    });
+    useEffect(() => {
+        if  (clickSubmit.length > 0)  {
+            getFilmName(clickSubmit).then(films => {
+                if (films.length > 0) {
+                    setMovieSearch(films);
+                }
+            });
+        }
   }, []);
 
   return (<div className={css.box}>
-    <h2 className={css.title}>Trending today</h2>
+   
     <ul className={css.list}> 
       {movieSearch.map(({ title, id }) => (
           <li className={css.item}>
@@ -32,4 +34,4 @@ useEffect(() => {
   );
 };
 
-export default MovieList;
+export default MovieSearchList;

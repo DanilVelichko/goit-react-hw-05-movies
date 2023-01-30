@@ -52,8 +52,8 @@ export const getFilmName = async (query) => {
       cast: data.credits.cast.slice(0, 5),
       reviews: data.reviews.results,
         };
-        
-    return filmDetails;
+        console.log(data.data.results)
+    return data.data.results;
   } catch (error) {
     console.error(error);
   }

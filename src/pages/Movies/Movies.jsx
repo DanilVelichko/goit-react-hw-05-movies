@@ -1,14 +1,18 @@
 import React from 'react';
-import Input from '@mui/material/Input';
+import MovieSearchInput from '../../components/MovieSearch/MovieSearchList';
+import MovieSearchList from 'components/MovieSearchList/MovieSearchInput';
 
-const Movies = (inputHandle) => {
+const Movies = () => {
+ 
 
-    return (
-        <>
-            <Input type='text' onChange={inputHandle} />
-            
-        </>
-    )
-}
+
+  return (
+    <>
+          <MovieSearchInput />
+          
+          <MovieSearchList />
+    </>
+  );
+};
 
 export default Movies;
