@@ -1,7 +1,7 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
 import { getTrendFilms } from 'services/api';
-import { Link } from 'react-router-dom';
+import { Link, useLocation  } from 'react-router-dom';
 import css from './MovieList.module.css';
 
 const MovieList = () => {
@@ -21,7 +21,7 @@ const MovieList = () => {
       <ul className={css.list}>
         {movieDailyTrends.map(({ title, id }) => (
           <li className={css.item}>
-            <Link className={css.link} to={`${id}`} key={id}>
+            <Link className={css.link} to={`movies/${id}`} state={'/'} key={id}>
               {title}
             </Link>
           </li>

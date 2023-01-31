@@ -3,7 +3,7 @@ import { Link } from './HeaderList.styled';
 
 const navItems = [
   { href: '/', text: 'Home' },
-  { href: '/movies', text: 'Movies' },
+  { href: 'movies', text: 'Movies' },
 ];
 
 const HeaderList = () => {

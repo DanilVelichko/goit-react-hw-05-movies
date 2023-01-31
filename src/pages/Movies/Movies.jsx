@@ -1,4 +1,4 @@
-import React, { useState, useEffect, Suspense } from 'react';
+import React, { useState, useEffect, Suspense, Outlet } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import MovieSearchInput from 'components/MovieSearchInput/MovieSearchInput';
 import MovieSearchList from 'components/MovieSearchList/MovieSearchList';
@@ -43,7 +43,8 @@ const Movies = () => {
       <MovieSearchInput setInput={setSearchParams} setLoad={setShouldLoad} />
       <Suspense>
         {showFilmList && <MovieSearchList value={movieName} />}
-        {noFindFilms && <h5>No Films find</h5>}
+        {noFindFilms && <h5>No Films found</h5>}
+        
       </Suspense>
     </>
   );

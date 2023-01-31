@@ -1,10 +1,15 @@
 import { Outlet } from 'react-router-dom';
+import HeaderList from 'components/HeaderList/HeaderList';
+import { Container, Header } from 'components/App.styled';
 
 const Layout = () => {
   return (
-    <>
+    <Container>
+      <Header>
+        <HeaderList />
+      </Header>
       <Outlet />
-    </>
+    </Container>
   );
 };
 

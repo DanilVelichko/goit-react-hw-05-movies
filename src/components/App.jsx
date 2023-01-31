@@ -1,28 +1,22 @@
 import { Routes, Route } from 'react-router-dom';
 import Home from '../pages/Home/Home';
-import { Container, Header } from './App.styled';
-import HeaderList from './HeaderList/HeaderList';
 import Layout from './Layout/Layout';
 import Movies from 'pages/Movies/Movies';
+import NoFound from 'pages/NoFound/NoFound';
+import MovieID from '../pages/MovieID/MovieID';
 
 export const App = () => {
   return (
-    <Container>
-      <Header>
-        <HeaderList />
-      </Header>
-
-      <Routes>
-        <Route path="/" element={<Layout />}>
-          <Route path="/" element={<Home />} />
-          <Route path="movies" element={<Movies />} />
-          <Route path=":movieId" element={<div>ID</div>}>
-            <Route path="cast" element={<div>Cast</div>} />
-            <Route path="review" element={<div>Review</div>} />
-          </Route>
-          {/* <Route path="*" element={<NotFound />} /> */}
+    <Routes>
+      <Route path="/" element={<Layout />}>
+        <Route path="/" element={<Home />} />
+        <Route path="/movies" element={<Movies />} />
+        <Route path="/movies/:movieId" element={<MovieID />}>
+          <Route path="cast" element={<div>Cast</div>} />
+          <Route path="review" element={<div>Review</div>} />
         </Route>
-      </Routes>
-    </Container>
+        <Route path="*" element={<NoFound />} />
+      </Route>
+    </Routes>
   );
 };

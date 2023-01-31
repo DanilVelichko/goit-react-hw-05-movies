@@ -13,7 +13,7 @@ export const Header = styled.header`
   justify-content: space-between;
   gap: 12px;
   padding: 8px 0;
-  margin-bottom: 16px;
+  margin-bottom: 6px;
   border-bottom: 1px solid black;
   background-color: black;
 
@@ -33,8 +33,8 @@ export const Link = styled(NavLink)`
 
   &.active {
     color: orangered;
-    
   }
+  
   &:hover {
 color: orangered;
   }

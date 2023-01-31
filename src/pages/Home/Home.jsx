@@ -1,13 +1,12 @@
 import MovieList from 'components/MovieList/MovieList';
 import React, { Suspense } from 'react';
-import { Outlet } from 'react-router-dom';
+
 
 const Home = () => {
   return (
-    <>
+    <> <Suspense>
       <MovieList />
-      <Suspense>
-        <Outlet />
+      
       </Suspense>
     </>
   );
