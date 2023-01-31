@@ -1,4 +1,4 @@
-import React, { useState, useEffect, Suspense, Outlet } from 'react';
+import React, { useState, useEffect, Suspense} from 'react';
 import { useSearchParams } from 'react-router-dom';
 import MovieSearchInput from 'components/MovieSearchInput/MovieSearchInput';
 import MovieSearchList from 'components/MovieSearchList/MovieSearchList';

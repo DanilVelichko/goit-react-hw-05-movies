@@ -32,8 +32,8 @@ export const getFilmDetails = async filmId => {
         name: actor.name,
         character: actor.character,
         photo: actor.profile_path
-        ? `https://image.tmdb.org/t/p/w500${actor.profile_path}`
-        : null,
+          ? `https://image.tmdb.org/t/p/w500${actor.profile_path}`
+          : null,
       })),
       review: data.data.reviews.results[0]
         ? data.data.reviews.results[0].content

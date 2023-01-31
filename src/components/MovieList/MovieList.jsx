@@ -1,7 +1,7 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
 import { getTrendFilms } from 'services/api';
-import { Link, useLocation  } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import css from './MovieList.module.css';
 
 const MovieList = () => {
