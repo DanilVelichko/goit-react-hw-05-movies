@@ -12,7 +12,7 @@ const Review = () => {
     const fetchData = async () => {
       const result = await getFilmDetails(movieId);
       setReviewDetail(result);
-      console.log(result);
+   
     };
 
     fetchData();

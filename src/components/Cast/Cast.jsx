@@ -12,7 +12,7 @@ const Cast = () => {
     const fetchData = async () => {
       const result = await getFilmDetails(movieId);
       setCastDetail(result);
-      console.log(result);
+    
     };
 
     fetchData();

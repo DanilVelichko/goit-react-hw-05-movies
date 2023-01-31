@@ -11,8 +11,6 @@ const MovieID = () => {
 
   const location = useLocation();
 
-  console.log('LOCATION', location);
-
   useEffect(() => {
     const fetchData = async () => {
       const result = await getFilmDetails(movieId);
