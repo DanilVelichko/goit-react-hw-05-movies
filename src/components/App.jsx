@@ -4,6 +4,8 @@ import Layout from './Layout/Layout';
 import Movies from 'pages/Movies/Movies';
 import NoFound from 'pages/NoFound/NoFound';
 import MovieID from '../pages/MovieID/MovieID';
+import Cast from './Cast/Cast';
+import Review from './Reviews/Review';
 
 export const App = () => {
   return (
@@ -12,8 +14,8 @@ export const App = () => {
         <Route path="/" element={<Home />} />
         <Route path="/movies" element={<Movies />} />
         <Route path="/movies/:movieId" element={<MovieID />}>
-          <Route path="cast" element={<div>Cast</div>} />
-          <Route path="review" element={<div>Review</div>} />
+          <Route path="cast" element={<Cast/>} />
+          <Route path="review" element={<Review />} />
         </Route>
         <Route path="*" element={<NoFound />} />
       </Route>

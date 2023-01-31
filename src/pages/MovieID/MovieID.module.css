@@ -58,6 +58,15 @@
     flex-direction: column;
 }
 
+.additional_item {
+    font-size: 14px;
+font-weight: bold;
+color: black;
+padding: 4px;
+}
+.additional_item:hover {
+    color: orangered;
+}
 .back_button {
       height: 30px;
     margin-left: 10px;

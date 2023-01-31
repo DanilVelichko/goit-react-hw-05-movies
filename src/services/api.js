@@ -9,7 +9,7 @@ export const getTrendFilms = async () => {
     const data = await axios.get(
       `${API_BASE}${API_TRENDING}?api_key=${API_KEY}`
     );
-    
+
     return data.data.results;
   } catch (error) {
     console.error(error);
@@ -22,17 +22,25 @@ export const getFilmDetails = async filmId => {
       `${API_BASE}3/movie/${filmId}?api_key=${API_KEY}&append_to_response=credits,reviews`
     );
 
-     const detailedFilm = {
+    const detailedFilm = {
       title: data.data.title,
       image: `https://image.tmdb.org/t/p/w500${data.data.poster_path}`,
       score: data.data.vote_average,
       overview: data.data.overview,
       genres: data.data.genres.map(genre => genre.name).join(', '),
-      cast: data.data.credits.cast.map(actor => actor.name).slice(0,5).join(', '),
-      review: data.data.reviews.results[0] ? data.data.reviews.results[0].content : 'No Reviews Found'
+      cast: data.data.credits.cast.slice(0, 5).map(actor => ({
+        name: actor.name,
+        character: actor.character,
+        photo: actor.profile_path
+        ? `https://image.tmdb.org/t/p/w500${actor.profile_path}`
+        : null,
+      })),
+      review: data.data.reviews.results[0]
+        ? data.data.reviews.results[0].content
+        : 'No Reviews Found',
     };
 
- console.log(detailedFilm)
+    // console.log(detailedFilm);
     return detailedFilm;
   } catch (error) {
     console.error(error);
@@ -45,7 +53,7 @@ export const getFilmName = async query => {
       `${API_BASE}3/search/movie?api_key=${API_KEY}&query=${query}`
     );
 
-     return data.data.results;
+    return data.data.results;
   } catch (error) {
     console.error(error);
   }
