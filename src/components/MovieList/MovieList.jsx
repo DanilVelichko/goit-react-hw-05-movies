@@ -7,7 +7,7 @@ import css from './MovieList.module.css';
 const MovieList = () => {
   const [movieDailyTrends, setMovieDailyTrends] = useState([]);
 
-useEffect(() => {
+  useEffect(() => {
     getTrendFilms().then(films => {
       if (films.length > 0) {
         setMovieDailyTrends(films);
@@ -15,18 +15,18 @@ useEffect(() => {
     });
   }, []);
 
-  return (<div className={css.box}>
-    <h2 className={css.title}>Trending today</h2>
-    <ul className={css.list}> 
-      {movieDailyTrends.map(({ title, id }) => (
+  return (
+    <div className={css.box}>
+      <h2 className={css.title}>Trending today</h2>
+      <ul className={css.list}>
+        {movieDailyTrends.map(({ title, id }) => (
           <li className={css.item}>
-              <Link className={css.link} to={`${id}`} key={id}>
-          {title}
-          </Link>
-        </li>
-        
-      ))}
-    </ul>
+            <Link className={css.link} to={`${id}`} key={id}>
+              {title}
+            </Link>
+          </li>
+        ))}
+      </ul>
     </div>
   );
 };

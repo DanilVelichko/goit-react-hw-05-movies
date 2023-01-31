@@ -40,19 +40,10 @@ export const getFilmDetails = async (filmId) => {
 export const getFilmName = async (query) => {
     try{
         const data = await axios.get(
-      `${API_BASE}/3/movie?api_key=${API_KEY}&query=${query}`
+      `${API_BASE}3/search/movie?api_key=${API_KEY}&query=${query}`
     );
    
-    const filmDetails = {
-      id: data.id,
-      title: data.title,
-      overview: data.overview,
-      posterPath: data.poster_path,
-      releaseDate: data.release_date,
-      cast: data.credits.cast.slice(0, 5),
-      reviews: data.reviews.results,
-        };
-        console.log(data.data.results)
+    console.log("GetFilmResult", data.data.results)
     return data.data.results;
   } catch (error) {
     console.error(error);
