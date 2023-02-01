@@ -1,9 +1,10 @@
-import React, { useState, useEffect, Suspense} from 'react';
+import React, { useState, useEffect, Suspense, lazy} from 'react';
 import { useSearchParams } from 'react-router-dom';
 import MovieSearchInput from 'components/MovieSearchInput/MovieSearchInput';
-import MovieSearchList from 'components/MovieSearchList/MovieSearchList';
 import { getFilmName } from 'services/api';
 import Notiflix from 'notiflix';
+
+const MovieSearchList = lazy(() => import("components/MovieSearchList/MovieSearchList"));
 
 const Movies = () => {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -41,7 +42,7 @@ const Movies = () => {
   return (
     <>
       <MovieSearchInput setInput={setSearchParams} setLoad={setShouldLoad} />
-      <Suspense>
+      <Suspense fallback={<div>Loading...</div>}>
         {showFilmList && <MovieSearchList value={movieName} />}
         {noFindFilms && <h5>No Films found</h5>}
         

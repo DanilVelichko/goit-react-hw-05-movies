@@ -1,7 +1,7 @@
 import React from 'react';
 import Input from '@mui/material/Input';
 import css from './MovieSearchInput.module.css'
-
+import PropTypes from 'prop-types';
 
 const MovieSearchInput = ({ setInput, setLoad }) => {
 
@@ -11,8 +11,7 @@ const MovieSearchInput = ({ setInput, setLoad }) => {
     
     setInput({ search: e.target[0].value });
     setLoad(true);
-    
-    console.dir(e.target[0].value)
+
       e.target[0].value = '';
   };
   return (
@@ -33,6 +32,11 @@ const MovieSearchInput = ({ setInput, setLoad }) => {
       
     </>
   );
+};
+
+MovieSearchInput.propTypes = {
+  setLoad: PropTypes.func.isRequired,
+  setInput: PropTypes.func.isRequired,
 };
 
 export default MovieSearchInput;

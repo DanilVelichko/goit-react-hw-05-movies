@@ -1,20 +1,22 @@
 import { useState, useEffect } from 'react';
 import { getFilmDetails } from 'services/api';
-import { Link, useParams, useLocation } from 'react-router-dom';
+import { Link, useParams, useLocation, Outlet } from 'react-router-dom';
 import css from './MovieID.module.css';
-import { Outlet } from 'react-router-dom';
+import Skeleton from 'react-loading-skeleton';
+import 'react-loading-skeleton/dist/skeleton.css';
 
 const MovieID = () => {
   const [filmDetails, setFilmDetails] = useState({});
   const { title, image, score, overview, genres } = filmDetails;
   const { movieId } = useParams();
-
+  const [isLoading, setIsLoading] = useState(true);
   const location = useLocation();
 
   useEffect(() => {
     const fetchData = async () => {
       const result = await getFilmDetails(movieId);
       setFilmDetails(result);
+      setIsLoading(false);
     };
     fetchData();
   }, [movieId]);
@@ -26,8 +28,54 @@ const MovieID = () => {
       </Link>
 
       <div className={css.hero_box}>
-        <img src={image} alt={title} className={css.image} />
-        <div className={css.hero_info}>
+
+        {isLoading ? (
+          <Skeleton
+            className={css.skeleton_img}
+            count={1}
+            baseColor={'#e5e5e5'}
+            width={190}
+            height={280}
+          />
+        ) : (
+          <img src={image} alt={title} className={css.image} />
+        )}
+
+        {isLoading ? (
+          <div className={css.hero_info}>
+          <Skeleton
+            className={css.skeleton_title}
+              count={1}
+              baseColor={'#eeaeae'}
+              width={250}
+            height={40}
+           
+                        /> 
+            <Skeleton
+            className={css.skeleton_score}
+              count={1}
+              baseColor={'#eeaeae'}
+              width={50}
+            height={20}
+                        /> 
+            <Skeleton
+            className={css.skeleton_overview}
+              count={1}
+              baseColor={'#eeaeae'}
+              width={600}
+            height={80}
+            /> 
+            <Skeleton
+            className={css.skeleton_genres}
+              count={1}
+              baseColor={'#eeaeae'}
+              width={50}
+            height={20}
+                      /> 
+            </div>
+        ) : (
+          <div className={css.hero_info}>
+
           <h3 className={css.title}> {title}</h3>
 
           <p className={css.score}>User Score: {score}</p>
@@ -38,6 +86,8 @@ const MovieID = () => {
           <p className={css.genres_title}>Genres</p>
           <p>{genres}</p>
         </div>
+        )}
+        
       </div>
       <div className={css.line}></div>
       <div className={css.additional_box}>

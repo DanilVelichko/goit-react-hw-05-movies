@@ -1,12 +1,12 @@
-import MovieList from 'components/MovieList/MovieList';
-import React, { Suspense } from 'react';
+import React, { Suspense, lazy } from 'react';
 
+const MovieList = lazy(() => import('components/MovieList/MovieList'));
 
 const Home = () => {
   return (
-    <> <Suspense>
-      <MovieList />
-      
+    <>
+      <Suspense fallback={<div>Loading...</div>}>
+        <MovieList />
       </Suspense>
     </>
   );

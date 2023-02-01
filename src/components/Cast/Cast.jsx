@@ -1,7 +1,8 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, Suspense } from 'react';
 import { getFilmDetails } from 'services/api';
 import {  useParams } from 'react-router-dom';
 import css from './Cast.module.css';
+
 
 const Cast = () => {
   const { movieId } = useParams();
@@ -21,11 +22,12 @@ const Cast = () => {
   return (
     <>
       <ul>
+        <Suspense fallback={<div>Loading...</div>}>
         {cast &&
           cast.length > 0 &&
           cast.map(({ name, photo, character }) => {
             return (
-              <li className={css.item}>
+              <li className={css.item} key={name}>
                 <img src={photo} alt={name} className={css.image} />
                 <div>
                   <p>Actor: {name}</p>
@@ -33,10 +35,11 @@ const Cast = () => {
                 </div>
               </li>
             );
-          })}
+          })}</Suspense>
       </ul>
     </>
   );
 };
 
 export default Cast;
+

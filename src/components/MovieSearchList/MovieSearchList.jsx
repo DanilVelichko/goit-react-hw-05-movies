@@ -1,9 +1,9 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import css from './MovieSearchList.module.css';
+import PropTypes from 'prop-types';
 
 const MovieSearchList = ({ value }) => {
- 
   return (
     <div className={css.box}>
       <ul className={css.list}>
@@ -17,6 +17,15 @@ const MovieSearchList = ({ value }) => {
       </ul>
     </div>
   );
+};
+
+MovieSearchList.propTypes = {
+  value: PropTypes.objectOf(
+    PropTypes.shape({
+      title: PropTypes.string.isRequired,
+      id: PropTypes.string.isRequired,
+    })
+  ),
 };
 
 export default MovieSearchList;
