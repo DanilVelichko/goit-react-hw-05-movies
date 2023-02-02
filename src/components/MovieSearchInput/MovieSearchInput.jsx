@@ -5,18 +5,20 @@ import PropTypes from 'prop-types';
 
 const MovieSearchInput = ({ setInput, setLoad }) => {
 
-
   const handleSubmit = e => {
     e.preventDefault();
     
     setInput({ search: e.target[0].value });
     setLoad(true);
 
-      e.target[0].value = '';
+    e.target[0].value = '';
+    
   };
+
   return (
     <>
       <form onSubmit={handleSubmit} className={css.form}>
+        
         <Input
           type="text"
           placeholder="Search movies"

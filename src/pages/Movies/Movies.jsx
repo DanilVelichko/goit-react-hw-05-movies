@@ -1,37 +1,39 @@
-import React, { useState, useEffect, Suspense, lazy} from 'react';
+import React, { useState, useEffect, Suspense, lazy } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import MovieSearchInput from 'components/MovieSearchInput/MovieSearchInput';
 import { getFilmName } from 'services/api';
 import Notiflix from 'notiflix';
+import { useLocation } from 'react-router-dom';
 
-const MovieSearchList = lazy(() => import("components/MovieSearchList/MovieSearchList"));
+const MovieSearchList = lazy(() =>
+  import('components/MovieSearchList/MovieSearchList')
+);
 
 const Movies = () => {
   const [searchParams, setSearchParams] = useSearchParams();
-  const [showFilmList, setShowFilmList] = useState(false);
   const [noFindFilms, setnoFindFilms] = useState(false);
   const [shouldLoad, setShouldLoad] = useState(false);
   const [movieName, setMovieName] = useState('');
+  const location = useLocation();
 
   useEffect(() => {
     if (!shouldLoad) return;
 
     if (!searchParams.get('search')) {
-      setShowFilmList(false);
       setnoFindFilms(false);
+      setMovieName('')
       Notiflix.Notify.info('Please enter the film name');
       return;
     } else {
       if (searchParams.get('search').length > 0) {
         getFilmName(searchParams.get('search')).then(films => {
           if (films.length === 0) {
-            setShowFilmList(false);
             setnoFindFilms(true);
+            setMovieName('')
           }
 
           if (films.length > 0) {
             setMovieName(films);
-            setShowFilmList(true);
             setnoFindFilms(false);
           }
         });
@@ -39,13 +41,30 @@ const Movies = () => {
     }
   }, [searchParams, shouldLoad]);
 
+
+  //Проверяем наличие введенного поиска на возврате по кнопке Back
+  useEffect(() => {
+    if (location.state === null) return;
+    console.log('LS', location.state.slice(8))
+    if (location.state != null) {
+      getFilmName(location.state.slice(8)).then(films => {
+        setMovieName(films);
+
+        setnoFindFilms(false);
+      });
+    }
+  }, [location.state]);
+
+  console.log(location.state);
+
   return (
     <>
       <MovieSearchInput setInput={setSearchParams} setLoad={setShouldLoad} />
       <Suspense fallback={<div>Loading...</div>}>
-        {showFilmList && <MovieSearchList value={movieName} />}
+        {movieName && (
+          <MovieSearchList value={movieName} searchPath={location} />
+        )}
         {noFindFilms && <h5>No Films found</h5>}
-        
       </Suspense>
     </>
   );

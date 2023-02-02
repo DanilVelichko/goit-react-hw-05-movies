@@ -28,19 +28,8 @@ export const getFilmDetails = async filmId => {
       score: data.data.vote_average,
       overview: data.data.overview,
       genres: data.data.genres.map(genre => genre.name).join(', '),
-      cast: data.data.credits.cast.slice(0, 5).map(actor => ({
-        name: actor.name,
-        character: actor.character,
-        photo: actor.profile_path
-          ? `https://image.tmdb.org/t/p/w500${actor.profile_path}`
-          : null,
-      })),
-      review: data.data.reviews.results[0]
-        ? data.data.reviews.results[0].content
-        : 'No Reviews Found',
     };
 
-    // console.log(detailedFilm);
     return detailedFilm;
   } catch (error) {
     console.error(error);
@@ -54,6 +43,42 @@ export const getFilmName = async query => {
     );
 
     return data.data.results;
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+export const getMovieReview = async filmId => {
+  try {
+    const data = await axios.get(
+      `${API_BASE}3/movie/${filmId}?api_key=${API_KEY}&append_to_response=reviews`
+    );
+
+    const review = data.data.reviews.results[0]
+      ? data.data.reviews.results[0].content
+      : 'No Reviews found';
+
+    return review;
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+export const getCast = async filmId => {
+  try {
+    const data = await axios.get(
+      `${API_BASE}3/movie/${filmId}/credits?api_key=${API_KEY}`
+    );
+
+    const cast = data.data.cast.slice(0, 5).map(actor => ({
+      name: actor.name,
+      character: actor.character,
+      photo: actor.profile_path
+        ? `https://image.tmdb.org/t/p/w500${actor.profile_path}`
+        : null,
+    }));
+
+    return cast;
   } catch (error) {
     console.error(error);
   }

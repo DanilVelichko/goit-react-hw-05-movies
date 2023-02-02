@@ -1,18 +1,16 @@
 import { useState, useEffect } from 'react';
-import { getFilmDetails } from 'services/api';
+import { getMovieReview } from 'services/api';
 import { useParams } from 'react-router-dom';
 import css from './Review.module.css';
 
 const Review = () => {
   const { movieId } = useParams();
-  const [reviewDetail, setReviewDetail] = useState({});
-  const { review } = reviewDetail;
+  const [review, setReview] = useState('');
 
   useEffect(() => {
     const fetchData = async () => {
-      const result = await getFilmDetails(movieId);
-      setReviewDetail(result);
-   
+      const result = await getMovieReview(movieId);
+      setReview(result);
     };
 
     fetchData();

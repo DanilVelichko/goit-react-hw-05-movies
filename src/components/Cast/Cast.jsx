@@ -1,43 +1,42 @@
-import { useState, useEffect, Suspense } from 'react';
-import { getFilmDetails } from 'services/api';
+import { useState, useEffect } from 'react';
+import { getCast } from 'services/api';
 import {  useParams } from 'react-router-dom';
 import css from './Cast.module.css';
 
 
 const Cast = () => {
-  const { movieId } = useParams();
-  const [castDetail, setCastDetail] = useState({});
-  const { cast } = castDetail;
+const { movieId } = useParams();
+const [cast, setCast] = useState([]);
 
-  useEffect(() => {
-    const fetchData = async () => {
-      const result = await getFilmDetails(movieId);
-      setCastDetail(result);
-    
-    };
+useEffect(() => {
+const fetchData = async () => {
+const result = await getCast(movieId);
+setCast(result);
+};
 
     fetchData();
   }, [movieId]);
 
-  return (
-    <>
-      <ul>
-        <Suspense fallback={<div>Loading...</div>}>
-        {cast &&
-          cast.length > 0 &&
-          cast.map(({ name, photo, character }) => {
-            return (
-              <li className={css.item} key={name}>
-                <img src={photo} alt={name} className={css.image} />
-                <div>
-                  <p>Actor: {name}</p>
-                  <p>Character: {character}</p>
-                </div>
-              </li>
-            );
-          })}</Suspense>
-      </ul>
-    </>
+return (
+<>
+<ul>
+
+      {cast &&
+      cast.length > 0 ?
+      cast.map(({ name, photo, character }) => {
+        return (
+          <li className={css.item} key={name}>
+            <img src={photo} alt={name} className={css.image} />
+            <div>
+              <p>Actor: {name}</p>
+              <p>Character: {character}</p>
+            </div>
+          </li>
+        );
+      }): 'No Actors found'}
+  </ul>
+</>
+
   );
 };
 
