@@ -45,7 +45,7 @@ const Movies = () => {
   //Проверяем наличие введенного поиска на возврате по кнопке Back
   useEffect(() => {
     if (location.state === null) return;
-    console.log('LS', location.state.slice(8))
+
     if (location.state != null) {
       getFilmName(location.state.slice(8)).then(films => {
         setMovieName(films);
@@ -54,8 +54,6 @@ const Movies = () => {
       });
     }
   }, [location.state]);
-
-  console.log(location.state);
 
   return (
     <>
