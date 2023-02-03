@@ -1,0 +1,1 @@
+{"version":3,"file":"static/css/954.0c2e111a.chunk.css","mappings":"AAAA,oBACI,kBACJ,CAEA,sBACI,eACJ,CAEA,mBAEI,cAAe,CADf,WAEJ","sources":["components/Reviews/Review.module.css"],"sourcesContent":[".item {\n    margin-bottom: 15px;\n}\n\n.author {\n    font-weight: bold;\n}\n\n.url {\n    padding: 5px;\n    font-size: 16px;\n}"],"names":[],"sourceRoot":""}
