@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { getMovieReview } from 'services/api';
-import { useParams } from 'react-router-dom';
+import { useParams, Link } from 'react-router-dom';
 import css from './Review.module.css';
 
 const Review = () => {
@@ -12,18 +12,22 @@ const Review = () => {
       const result = await getMovieReview(movieId);
       setReview(result);
     };
-
     fetchData();
   }, [movieId]);
 
   return (
     <>
       <ul>
-        {review && review.length > 0 && (
-          <li className={css.item}>
-            <p>{review}</p>
-          </li>
-        )}
+        {review.length > 0 ?
+          review.map(({ id, author, content, url }) => (
+            <li className={css.item} key={id}>
+              <p className={css.author}>{author}</p>
+              <p className={css.content}>{content}</p>
+              <Link to={url} className={css.url}>
+                {'>>>'} {url} {'<<<'}
+              </Link>
+            </li>
+          )): 'No reviews found'}
       </ul>
     </>
   );

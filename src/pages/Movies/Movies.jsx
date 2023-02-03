@@ -13,7 +13,7 @@ const Movies = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const [noFindFilms, setnoFindFilms] = useState(false);
   const [shouldLoad, setShouldLoad] = useState(false);
-  const [movieName, setMovieName] = useState('');
+  const [movieName, setMovieName] = useState([]);
   const location = useLocation();
 
   useEffect(() => {
@@ -59,7 +59,7 @@ const Movies = () => {
     <>
       <MovieSearchInput setInput={setSearchParams} setLoad={setShouldLoad} />
       <Suspense fallback={<div>Loading...</div>}>
-        {movieName && (
+        {movieName.length > 0 && (
           <MovieSearchList value={movieName} searchPath={location} />
         )}
         {noFindFilms && <h5>No Films found</h5>}

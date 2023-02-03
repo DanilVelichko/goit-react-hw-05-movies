@@ -19,7 +19,7 @@ export const getTrendFilms = async () => {
 export const getFilmDetails = async filmId => {
   try {
     const data = await axios.get(
-      `${API_BASE}3/movie/${filmId}?api_key=${API_KEY}&append_to_response=credits,reviews`
+      `${API_BASE}3/movie/${filmId}?api_key=${API_KEY}`
     );
 
     const detailedFilm = {
@@ -51,14 +51,20 @@ export const getFilmName = async query => {
 export const getMovieReview = async filmId => {
   try {
     const data = await axios.get(
-      `${API_BASE}3/movie/${filmId}?api_key=${API_KEY}&append_to_response=reviews`
+      `${API_BASE}3/movie/${filmId}/reviews?api_key=${API_KEY}`
     );
 
-    const review = data.data.reviews.results[0]
-      ? data.data.reviews.results[0].content
-      : 'No Reviews found';
+  const reviews = data.data.results.map(({id, author, content, url} )=> {
+  return {
+    id: id,
+    author: author,
+    content: content,
+    url: url
+  };
+  });
 
-    return review;
+return reviews;
+
   } catch (error) {
     console.error(error);
   }
@@ -70,11 +76,11 @@ export const getCast = async filmId => {
       `${API_BASE}3/movie/${filmId}/credits?api_key=${API_KEY}`
     );
 
-    const cast = data.data.cast.slice(0, 5).map(actor => ({
-      name: actor.name,
-      character: actor.character,
-      photo: actor.profile_path
-        ? `https://image.tmdb.org/t/p/w500${actor.profile_path}`
+    const cast = data.data.cast.slice(0, 5).map(({name, character, profile_path }) => ({
+      name: name,
+      character: character,
+      photo: profile_path
+        ? `https://image.tmdb.org/t/p/w500${profile_path}`
         : null,
     }));
 

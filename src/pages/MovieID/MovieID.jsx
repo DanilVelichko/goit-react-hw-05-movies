@@ -46,7 +46,7 @@ const MovieID = () => {
             height={280}
           />
         ) : (
-          <img src={image} alt={title} className={css.image} />
+          <img src={image} alt={title} className={css.image} height={'300px'} />
         )}
 
         {isLoading ? (
